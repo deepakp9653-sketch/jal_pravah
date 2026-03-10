@@ -1,25 +1,35 @@
-# mongodb-connection-string-url
+# Urban Flooding & Hydrology Engine (UFHE)
 
-MongoDB connection strings, based on the WhatWG URL API
+## Team Name & Affiliation
+**Team Name:** [Meghalytics]
+**Members:** [Deepakkumar Prajapati,Prateek Pandey,Tanishq Bhosale ]
 
-```js
-import ConnectionString from 'mongodb-connection-string-url';
+## Problem Statement
+Indian cities lose ₹15,000–50,000 Cr annually to urban flooding, with average response times ranging from 4 to 12 hours after waterlogging occurs. Currently, 70% of drainage infrastructure conditions remain unknown, pre-monsoon preparation is unstructured, and disaster response is reactive rather than data-driven. There is no unified spatial view of terrain, drainage, and predictive rainfall to identify micro-level vulnerabilities before chaos ensues.
 
-const cs = new ConnectionString('mongodb://localhost');
-cs.searchParams.set('readPreference', 'secondary');
-console.log(cs.href); // 'mongodb://localhost/?readPreference=secondary'
-```
+## Solution
+UFHE transforms urban flood management from a reactive crisis response to a proactive, data-driven prevention model. By combining a GIS Map Engine, real-time meteorological data (Open-Meteo), and micro-basin delineation, the engine acts as a living flood intelligence system. It assigns a Flood Vulnerability Index (FVI) to every 50m × 50m city patch and computes a Pre-Monsoon Readiness Score (PMRS) across wards, empowering civic authorities and engineers to pre-position resources hours before the rain starts.
 
-## Deviations from the WhatWG URL package
+## Architecture
+The system employs a multi-tiered architecture:
+- **Data Ingestion Layer:** Pulls real-time rainfall data (AWS, IMD, Open-Meteo API) and forecasts.
+- **Processing & ML Engine:** Calculates Flood Vulnerability Index (FVI), runs physics-ML hybrid flood simulation, and computes hardware/team readiness (PMRS).
+- **Core backend:** Node.js server (`server.js`) with an SQLite database for persistent tracking.
+- **Presentation / GIS Layer:** An interactive Mapbox GL / Deck.gl web interface overlaying 3D terrain visualizations alongside real-time hotspots, actionable dashboards, and citizen alerts.
 
-- URL parameters are case-insensitive
-- The `.host`, `.hostname` and `.port` properties cannot be set, and reading
-  them does not return meaningful results (and are typed as `never`in TypeScript)
-- The `.hosts` property contains a list of all hosts in the connection string
-- The `.href` property cannot be set, only read
-- There is an additional `.isSRV` property, set to `true` for `mongodb+srv://`
-- There is an additional `.clone()` utility method on the prototype
+## Technology Used
+- **Frontend:** Vanilla JavaScript (`app.js`), HTML5, CSS3 (Glassmorphism UI, Responsive Design)
+- **Mapping & GIS:** Mapbox GL, Deck.gl
+- **Backend:** Node.js, Express.js (`server.js`)
+- **Database:** SQLite
+- **APIs:** Open-Meteo API (for real-time and forecasted weather data)
 
-## LICENSE
+## Feature / USP
+- **Micro-level Predictability:** Generates a granular Flood Vulnerability Index at a 50x50m micro-basin level.
+- **PMRS (Pre-Monsoon Readiness Score):** Quantifiable accountability metric for ward-level infrastructure readiness.
+- **Physics-ML Hybrid Forecasting:** Shifts resource deployment from "gut-feel" to predictive action with 3+ hours lead time.
+- **Immersive Glassmorphism UI:** Rain-slicked, refractive dynamic dashboard that offers "single-screen" clarity to commissioners and granular tools to engineers.
 
-Apache-2.0
+## References / Links
+- **Weather Data:** [Open-Meteo API](https://open-meteo.com/)
+- **Mapping:** [Mapbox](https://www.mapbox.com/), [Deck.gl](https://deck.gl/)
